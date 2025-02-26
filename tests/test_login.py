@@ -2,7 +2,7 @@ import time
 import allure
 
 from conftest import driver, api_user
-from locators.locators_list import Locators
+from locators.locators_pass_log import Locators
 from pages.login_page import LoginPage
 from test_data import TestData
 

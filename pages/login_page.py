@@ -1,4 +1,4 @@
-from locators.locators_list import Locators
+from locators.locators_pass_log import Locators
 from pages.base_page import BasePage
 
 

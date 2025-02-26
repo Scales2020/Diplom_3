@@ -3,7 +3,6 @@ import requests
 from selenium import webdriver
 
 from constants import Constants
-from route_user import APIUser
 from test_data import TestData
 
 

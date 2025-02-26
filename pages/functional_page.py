@@ -1,10 +1,8 @@
 import allure
 from selenium.webdriver import ActionChains
 
-from conftest import driver
-from locators.locators_list import Locators
+from locators.locators_pass_log import Locators
 from pages.base_page import BasePage
-from route_user import APIUser
 
 
 class FunctionalPage(BasePage):

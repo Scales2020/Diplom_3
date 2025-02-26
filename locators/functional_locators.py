@@ -18,4 +18,5 @@ class KonstrLocators:
 
     TO_ORDER = (By.XPATH, "//button[contains(text(),'Оформить заказ')]")  #кнопка Сделать заказ (если авторизован)
     ORDER_PLACED = (By.XPATH, "//p[contains(text(),'идентификатор заказа')]") #модальное окно если заказ успешно размещен - есть идентификатор заказа
+    # номер заказа из модального окна, возникающего после создания заказ - номер появляется не сразу, вначале 9999
     ORDER_NUMBER = (By.XPATH, "//h2[@class='Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8']")

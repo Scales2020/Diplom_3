@@ -2,7 +2,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 from constants import Constants
-from locators.locators_list import Locators
+from locators.locators_pass_log import Locators
 
 
 class BasePage:

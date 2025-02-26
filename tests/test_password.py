@@ -2,7 +2,7 @@ import allure
 
 from conftest import driver
 from constants import Constants
-from locators.locators_list import Locators
+from locators.locators_pass_log import Locators
 
 from pages.password_page import PassPage
 
