@@ -25,19 +25,11 @@ def api_user_and_order(data=TestData.new_user, ingr=TestData.ingr):
     order_number = order_info['order']['number']
     print(order_number)
 
-
     yield access_token
     cleaning = requests.delete(f'{Constants.URL}/api/auth/user', headers={'Authorization': f'{access_token}'})
     print(cleaning.text)
     return order_number
 
-
-#@pytest.fixture()
-#def driver():
-#    browser = webdriver.Chrome()
-#    #browser = webdriver.Firefox()
-#    yield browser
-#    browser.quit()
 
 @pytest.fixture(params=['chrome', 'firefox'])
 def driver(request):
