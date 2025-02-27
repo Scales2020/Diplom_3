@@ -1,0 +1,2 @@
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YzBhNGY0OWVkMjgwMDAxYjU4NmVkMCIsImlhdCI6MTc0MDY3ODM4OCwiZXhwIjoxNzQwNjc5NTg4fQ.Znn1tGYeXg8g6G7mm93Pi-vGDutMf7Vj8-2Gz5Qx0h8
+{"success":true,"message":"User successfully removed"}

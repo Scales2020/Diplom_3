@@ -1,0 +1,3 @@
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YmZkZWRiOWVkMjgwMDAxYjU4NmE1MiIsImlhdCI6MTc0MDYyNzY3NSwiZXhwIjoxNzQwNjI4ODc1fQ.dUyuXuYgDSGmIs2CTkCgluyYibjI460K5y-Z7--cztk
+187592
+{"success":true,"message":"User successfully removed"}
