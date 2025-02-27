@@ -1,5 +1,6 @@
 import allure
 from conftest import driver
+from constants import Constants
 from locators.locators_pass_log import Locators
 from pages.password_page import PassPage
 from test_data import TestData
@@ -38,7 +39,7 @@ class TestPasswordPage:
         pass_page.find_element(Locators.PASS_RECOV_PASSWORD_FIELD_EYE).click()
         
         with allure.step("Проверка: при клике пароль становится видимым (меняется тип в локаторе)"):
-            assert password_entry.get_attribute("type") == "text"
+            assert password_entry.get_attribute("type") == Constants.password_entry_attr
 
 
 

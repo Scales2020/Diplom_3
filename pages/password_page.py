@@ -1,8 +1,11 @@
+import allure
+
 from locators.locators_pass_log import Locators
 from pages.base_page import BasePage
 
 
 class PassPage(BasePage):
+    @allure.step("Переход на страницу восстановления пароля")
     def go_to_password_recovery_page(self):
         self.go_to_mainpage()
         self.find_element(Locators.LOGIN_BUTTON).click()

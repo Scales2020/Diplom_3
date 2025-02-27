@@ -1,8 +1,4 @@
-import time
 import allure
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 
 from locators.lenta_locators import LentaLocators
 from locators.locators_pass_log import Locators
@@ -27,18 +23,16 @@ class TestLentaPage:
 
         test_page.go_to_loginpage()
         test_page.authorisation_with_testdata_newuser(mail=TestData.new_user["email"], passw=TestData.new_user["password"])
-        test_page.find_element(Locators.LOGIN_BUTTON).click()
-        time.sleep(8)
+        test_page.click_and_wait(Locators.LOGIN_BUTTON, 15)
         test_page.find_element(Locators.HISTORY_OF_ORDERS_MENU).click()
 
         with allure.step('Получаем номер последнего заказа'):
             last_order_text = test_page.find_element(LentaLocators.LENTA_LAST_ORDER).text
 
-        test_page.find_element(LentaLocators.BUTTON_LENTA_ZAKAZOV).click()
-        time.sleep(5)
-        element_locator = (By.XPATH, f"//p[contains(text(), '{last_order_text}')]")
+        test_page.click_and_wait(LentaLocators.BUTTON_LENTA_ZAKAZOV,5)
+        locator = test_page.get_order_locator(last_order_text)
         with allure.step('Проверяем, что в Ленте Заказов есть заказ с таким же номером'):
-            assert last_order_text in WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located(element_locator)).text
+            assert last_order_text in test_page.find_order(locator).text
 
 
     @allure.title('Проверяем, что при создании нового заказа счётчик "Выполнено за всё время" увеличивается')
@@ -52,8 +46,7 @@ class TestLentaPage:
             test_page.go_to_loginpage()
 
         test_page.authorisation_with_testdata_newuser(mail=TestData.new_user["email"], passw=TestData.new_user["password"])
-        test_page.create_new_order(LentaLocators.INGR_DRAG_1, LentaLocators.INGR_DRAG_2, LentaLocators.INGR_DROP)
-        time.sleep(3)
+        test_page.create_new_order(LentaLocators.INGR_DRAG_1, LentaLocators.INGR_DRAG_2, LentaLocators.INGR_DROP, 3)
         test_page.find_element(LentaLocators.KRESTIK_ORDER_MODAL).click()
 
         test_page.find_element(LentaLocators.BUTTON_LENTA_ZAKAZOV).click()
@@ -76,10 +69,8 @@ class TestLentaPage:
             test_page.go_to_loginpage()
 
         test_page.authorisation_with_testdata_newuser(mail=TestData.new_user["email"], passw=TestData.new_user["password"])
-        test_page.create_new_order(LentaLocators.INGR_DRAG_1, LentaLocators.INGR_DRAG_2, LentaLocators.INGR_DROP)
-        time.sleep(3)
+        test_page.create_new_order(LentaLocators.INGR_DRAG_1, LentaLocators.INGR_DRAG_2, LentaLocators.INGR_DROP, 3)
         test_page.find_element(LentaLocators.KRESTIK_ORDER_MODAL).click()
-
         test_page.find_element(LentaLocators.BUTTON_LENTA_ZAKAZOV).click()
 
         with allure.step('Счетчик заказов ПОСЛЕ создания заказа'):
@@ -93,19 +84,16 @@ class TestLentaPage:
     def test_new_order_is_shown_in_list_of_orders_in_progress(self, driver, api_user):
         test_page = LentaPage(driver)
         user = api_user
-
         test_page.go_to_loginpage()
         test_page.authorisation_with_testdata_newuser(mail=TestData.new_user["email"], passw=TestData.new_user["password"])
 
-        test_page.create_new_order(LentaLocators.INGR_DRAG_1, LentaLocators.INGR_DRAG_2, LentaLocators.INGR_DROP)
-        time.sleep(3)
+        test_page.create_new_order(LentaLocators.INGR_DRAG_1, LentaLocators.INGR_DRAG_2, LentaLocators.INGR_DROP, 3)
         latest_order = test_page.find_element(LentaLocators.ORDER_NUMBER).text
         with allure.step(f'Соханяем номер нового заказа: {latest_order} и закрываем окно'):
             test_page.find_element(LentaLocators.KRESTIK_ORDER_MODAL).click()
 
         with allure.step('Переходим в ЛЕНТУ ЗАКАЗОВ и проверяем список заказов, которые готовятся'):
-            test_page.find_element(LentaLocators.BUTTON_LENTA_ZAKAZOV).click()
-            time.sleep(1)
+            test_page.click_and_wait(LentaLocators.BUTTON_LENTA_ZAKAZOV, 1)
         order_in_list = test_page.find_element(LentaLocators.ORDERS_IN_PROGRESS).text
         order_in_progress = order_in_list[1:] #убираем лишний знак (0 в начале)
         with allure.step(f'Cверяем номер созданного заказа {latest_order} и заказа в списке В РАБОТЕ {order_in_progress}'):

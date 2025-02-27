@@ -1,4 +1,3 @@
-import time
 import allure
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
@@ -32,8 +31,7 @@ class TestFunctions:
     def test_click_to_ingredient_opens_details(self, driver):
         test_page = FunctionalPage(driver)
         test_page.go_to_mainpage()
-        test_page.find_element(KonstrLocators.BULKA_PICTURE).click()
-        time.sleep(3)
+        test_page.click_and_wait(KonstrLocators.BULKA_PICTURE, 10)
 
         with allure.step("Открылось модальное окно с деталями"):
             assert "Детали ингредиента" in test_page.find_element(KonstrLocators.BULKA_DETAILS).text
@@ -65,8 +63,7 @@ class TestFunctions:
         test_page.go_to_login()
         test_page.authorisation_with_testdata_newuser(mail=TestData.new_user["email"], passw=TestData.new_user["password"])
         test_page.drag_and_drop_element(KonstrLocators.INGR_DRAG, KonstrLocators.INGR_DROP)
-        test_page.find_element(KonstrLocators.TO_ORDER).click()
-        time.sleep(4)
+        test_page.click_and_wait(KonstrLocators.TO_ORDER, 4)
 
         with allure.step("Проверяем, что открывается модальное окно с фразой 'идентификатор заказа'"):
             assert 'идентификатор заказа' in test_page.find_element(KonstrLocators.ORDER_PLACED).text

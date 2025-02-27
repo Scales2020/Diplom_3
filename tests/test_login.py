@@ -1,7 +1,6 @@
-import time
 import allure
-
 from conftest import driver, api_user
+from constants import Constants
 from locators.locators_pass_log import Locators
 from pages.login_page import LoginPage
 from test_data import TestData
@@ -22,14 +21,13 @@ class TestLoginPage:
         user = api_user
         login_p.go_to_loginpage()
         login_p.authorisation_with_testdata_newuser(mail=TestData.new_user["email"], passw=TestData.new_user["password"])
-        time.sleep(3)
-        login_p.find_element(Locators.LOGIN_BUTTON).click()
+        login_p.wait_and_click(10, Locators.LOGIN_BUTTON)
 
-        history_button = login_p.find_element(Locators.HISTORY_OF_ORDERS_MENU)
-        history_button.click()
+        attribute = login_p.button_attribute_check(10, Locators.HISTORY_OF_ORDERS_MENU)
 
         with allure.step("Проверка: цвет названия раздела при клике изменился"):
-            assert history_button.get_attribute("class") == "Account_link__2ETsJ text text_type_main-medium text_color_inactive Account_link_active__2opc9"
+            assert attribute == Constants.button_new_look
+
 
     @allure.title('Проверяем выход из аккаунта')
     def test_logout_success(self, driver, api_user):
@@ -37,8 +35,7 @@ class TestLoginPage:
         user = api_user
         login_p.go_to_loginpage()
         login_p.authorisation_with_testdata_newuser(mail=TestData.new_user["email"], passw=TestData.new_user["password"])
-        time.sleep(3)
-        login_p.find_element(Locators.LOGIN_BUTTON).click()
+        login_p.wait_and_click(5, Locators.LOGIN_BUTTON)
         login_p.find_element(Locators.AUTH_SIGNOUT_BUTTON).click()
 
         with allure.step("Проверка: появилась надпись ВХОД"):
