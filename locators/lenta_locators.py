@@ -11,7 +11,7 @@ class LentaLocators:
     ORDER_NUMBER = (By.XPATH, "//h2[@class='Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8']")
 
 
-    TOTAL_COUNTER = (By.XPATH, "//p[@class='OrderFeed_number__2MbrQ text text_type_digits-large']")
+    TOTAL_COUNTER = (By.XPATH, "// *[text() = 'Выполнено за все время:']/following-sibling::p")
     TODAY_COUNTER = (By.XPATH, "// *[text() = 'Выполнено за сегодня:']/following-sibling::p")
 
     INGR_DRAG_1 = (By.XPATH, "//img[@alt='Краторная булка N-200i']")

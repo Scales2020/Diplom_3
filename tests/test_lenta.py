@@ -28,7 +28,7 @@ class TestLentaPage:
         test_page.go_to_loginpage()
         test_page.authorisation_with_testdata_newuser(mail=TestData.new_user["email"], passw=TestData.new_user["password"])
         test_page.find_element(Locators.LOGIN_BUTTON).click()
-        time.sleep(4)
+        time.sleep(8)
         test_page.find_element(Locators.HISTORY_OF_ORDERS_MENU).click()
 
         with allure.step('Получаем номер последнего заказа'):
@@ -90,7 +90,7 @@ class TestLentaPage:
 
 
     @allure.title('Проверяем, что после оформления заказа его номер появляется в разделе В РАБОТЕ')
-    def test_authorised_user_orders_shown_in_lenta(self, driver, api_user):
+    def test_new_order_is_shown_in_list_of_orders_in_progress(self, driver, api_user):
         test_page = LentaPage(driver)
         user = api_user
 

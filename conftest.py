@@ -32,21 +32,21 @@ def api_user_and_order(data=TestData.new_user, ingr=TestData.ingr):
     return order_number
 
 
-@pytest.fixture()
-def driver():
-    browser = webdriver.Chrome()
-    #browser = webdriver.Firefox()
-    yield browser
-    browser.quit()
-
-#@pytest.fixture(params=['chrome', 'firefox'])
-#def driver(request):
-#    if request.param == 'firefox':
-#        browser = webdriver.Firefox()
-#    elif request.param == 'chrome':
-#        browser = webdriver.Chrome()
-#    else:
-#        raise ValueError('Unknown browser type')
+#@pytest.fixture()
+#def driver():
+#    browser = webdriver.Chrome()
+#    #browser = webdriver.Firefox()
 #    yield browser
 #    browser.quit()
+
+@pytest.fixture(params=['chrome', 'firefox'])
+def driver(request):
+    if request.param == 'firefox':
+        browser = webdriver.Firefox()
+    elif request.param == 'chrome':
+        browser = webdriver.Chrome()
+    else:
+        raise ValueError('Unknown browser type')
+    yield browser
+    browser.quit()
 
